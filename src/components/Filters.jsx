@@ -1,12 +1,11 @@
 import { Check } from "@mui/icons-material";
-import { useState } from "react";
 import { CartState } from "../context/CartContext";
 import Rating from "./Rating";
 import MySearch from "./Search";
 
 const Filters = () => {
   const {
-    prodState: { byPrice, byStock, byRating, searchQuery },
+    prodState: { byPrice, inStock, byRating, searchQuery },
     prodDispatch,
   } = CartState();
 
@@ -66,7 +65,7 @@ const Filters = () => {
         onClick={() => prodDispatch({ type: "FILTER_BY_STOCK" })}
         style={styles.button}
       >
-        {"In Stock"} {byStock && <Check fontSize="small" />}
+        {"Only In Stock"} {inStock && <Check fontSize="small" />}
       </div>
       <div
         onClick={() => prodDispatch({ type: "CLEAR_FILTERS" })}

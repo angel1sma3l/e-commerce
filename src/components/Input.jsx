@@ -20,7 +20,7 @@ const Input = ({
   const styles = {
     container: {
       backgroundColor: dark ? "black" : "inherit",
-      color: dark ? "white" : "black",
+      color: "var(--text-primary)",
       width: "100%",
       alignItems: "center",
       display: "flex",
@@ -56,7 +56,7 @@ const Input = ({
     input: {
       display: "flex",
       backgroundColor: dark ? "black" : "inherit",
-      color: dark ? "white" : "black",
+      color: "var(--text-primary)",
       width: "100%",
       paddingLeft: 5,
       paddingRight: 50,

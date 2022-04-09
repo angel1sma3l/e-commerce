@@ -10,7 +10,12 @@ const useIsMobile = () => {
       setIsMoblie(window.innerWidth < 1022 ? true : false);
     });
 
-    return () => setIsMoblie(window.innerWidth < 1022 ? true : false);
+    return () => {
+      window.removeEventListener(
+        "resize",
+        setIsMoblie(window.innerWidth < 1022 ? true : false)
+      );
+    };
   }, []);
 
   return isMobile;

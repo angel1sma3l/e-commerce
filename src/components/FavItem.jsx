@@ -1,22 +1,24 @@
-import { DeleteRounded } from "@mui/icons-material";
+import { AddShoppingCartOutlined, DeleteRounded } from "@mui/icons-material";
 import { CartState } from "../context/CartContext";
+import formatter from "../utility/formatter";
 import FavButton from "./FavButton";
-import QuantitySelector from "./QuantitySelector";
+import { toast } from "react-toastify";
 
-const ListItem = ({ item }) => {
+const FavItem = ({ item }) => {
   const { dispatch } = CartState();
 
   const handleFavoriteClick = () => {
     dispatch({ type: "ADD_TO_FAVORITE", payload: item });
   };
 
-  const handleQtyChange = (selectedQty) => {
-    dispatch({
-      type: "CHANGE_CART_QTY",
-      payload: { id: item.id, qty: selectedQty },
+  const handleAddtoCart = () => {
+    toast.success("Item Added to Cart.", {
+      style: { fontSize: 28, fontWeight: "bold" },
+      position: "top-center",
     });
-  };
 
+    dispatch({ type: "ADD_TO_CART", payload: item });
+  };
   const styles = {
     wrapper: {
       display: "flex",
@@ -56,7 +58,22 @@ const ListItem = ({ item }) => {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-around",
-      width: 80,
+      padding: 10,
+      width: 180,
+    },
+    favButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      //   marginLeft: 10,
+    },
+    delButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      //   marginLeft: 10,
     },
   };
 
@@ -73,31 +90,23 @@ const ListItem = ({ item }) => {
       <div style={styles.infoContainer}>
         <div style={styles.info}>
           <div style={{ fontSize: 25 }}>{item.title}</div>
-          <div>price: US${item.price}</div>
+          <div>price: {formatter.currency(item.price)}</div>
           <div>Size: {item.size}</div>
-          <div>Color: {item.color.toUpperCase()}</div>
-          <div>
-            <QuantitySelector
-              inStock={item.inStock}
-              selected={item.qty}
-              onSelected={(s) => handleQtyChange(s)}
-            />
-          </div>
+          <div>In Stock: {item.inStock}</div>
+          {item.color && <div>Color: {item.color.toUpperCase()}</div>}
 
           <div style={styles.buttons}>
-            <FavButton
-              isFavorite={item.isFavorite}
-              onClick={handleFavoriteClick}
-              size="medium"
-            />
+            <div style={styles.favButton}>
+              <FavButton
+                isFavorite={item.isFavorite}
+                onClick={handleFavoriteClick}
+                size="medium"
+              />
+            </div>
 
-            <DeleteRounded
-              onClick={() =>
-                dispatch({ type: "REMOVE_FROM_CART", payload: item })
-              }
-              color="error"
-              fontSize="medium"
-            />
+            <div style={styles.delButton} onClick={handleAddtoCart}>
+              <AddShoppingCartOutlined color="inherit" fontSize="medium" />
+            </div>
           </div>
         </div>
       </div>
@@ -105,4 +114,4 @@ const ListItem = ({ item }) => {
   );
 };
 
-export default ListItem;
+export default FavItem;

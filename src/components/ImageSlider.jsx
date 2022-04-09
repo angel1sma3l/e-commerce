@@ -1,11 +1,27 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import Button from "../components/Button";
 import useIsMobile from "../hooks/useIsMobile";
 
-const Slider = ({ data, showArrow = true }) => {
+const ImageSlider = ({ data, showArrow = false, height, width }) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [hover, setHover] = useState(false);
   const isMobile = useIsMobile();
+  const totalOfSlides = data.length - 1;
+
+  useEffect(() => {
+    let interv = null;
+    let index = 0;
+    if (hover) {
+      setSlideIndex(1);
+      interv = setInterval(() => {
+        if (index < totalOfSlides) index++;
+        else index = 0;
+        setSlideIndex(index);
+      }, 1300);
+    } else setSlideIndex(0);
+
+    return () => clearInterval(interv);
+  }, [hover, totalOfSlides]);
 
   const styles = {
     leftArrow: {
@@ -38,62 +54,39 @@ const Slider = ({ data, showArrow = true }) => {
       borderRadius: 25,
       zIndex: 2,
     },
-    slide: {
-      display: "flex",
-      flexWrap: isMobile ? "wrap" : "nowrap",
-      width: "100vw",
-      height: "100%",
-    },
-    infoContainer: {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-      height: "auto",
-      marginLeft: 30,
-      justifyContent: "center",
-    },
     container: {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
       backgroundColor: "#00000011",
-      // height: "100vh",
-      width: "100vw",
+      height: height,
+      width: width || "100%",
       overflow: "hidden",
       position: "relative",
     },
-    desc: { fontSize: 38 },
     image: { height: "100%", width: "100%", objectFit: "contain" },
-    imageContainer: {
-      display: "flex",
-      alignItems: "center",
-      height: "100%",
-      width: "100%",
-      justifyContent: "center",
-    },
-    title: {
-      fontSize: 100,
-      display: "flex",
-      width: "100%",
-    },
     wrapper: {
       backgroundColor: "white",
       color: "black",
       display: "flex",
+      width: `${totalOfSlides * 100}%`,
       transition: "all 1.5s ease",
-      transform: `translateX(${slideIndex * -100}vw)`, // moving screen -100vw
+      transform: `translateX(${slideIndex * -100}%)`, // moving screen -100%
     },
   };
 
   const handleClick = (direction) => {
-    const totalOfSlides = data.length - 1;
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : totalOfSlides);
     } else setSlideIndex(slideIndex < totalOfSlides ? slideIndex + 1 : 0);
   };
 
   return (
-    <div style={styles.container}>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={styles.container}
+    >
       {showArrow && (
         <div onClick={() => handleClick("left")} style={styles.leftArrow}>
           <ArrowBack fontSize="large" />
@@ -102,17 +95,12 @@ const Slider = ({ data, showArrow = true }) => {
 
       <div style={styles.wrapper}>
         {data.map((item, index) => (
-          <div key={index} style={styles.slide}>
-            <div style={styles.imageContainer}>
-              <img src={item.image} alt={item.title} style={styles.image} />
-            </div>
-
-            <div style={styles.infoContainer}>
-              <div style={styles.title}>{item.title}</div>
-              <div style={styles.desc}>{item.desc}</div>
-              <Button title="Shop Now" width={300} border />
-            </div>
-          </div>
+          <img
+            key={index}
+            src={item.image}
+            alt={item.title || "product"}
+            style={styles.image}
+          />
         ))}
       </div>
 
@@ -125,4 +113,4 @@ const Slider = ({ data, showArrow = true }) => {
   );
 };
 
-export default Slider;
+export default ImageSlider;

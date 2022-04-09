@@ -27,19 +27,15 @@ export const cartReducer = (state, action) => {
     case "ADD_TO_FAVORITE":
       return {
         ...state,
-        favorites: [...state.favorites, { ...action.payload }],
-      };
-
-    case "REMOVE_FROM_FAVORITE":
-      return {
-        ...state,
-        favorites: state.favorites.filter((f) => f.id !== action.payload.id),
+        products: state.products.map((p) => {
+          if (p.id === action.payload.id) p.isFavorite = !p.isFavorite;
+          return p;
+        }),
       };
 
     default:
       return state;
   }
-  console.log(action);
 };
 
 export const prodReducer = (state, action) => {
@@ -53,7 +49,7 @@ export const prodReducer = (state, action) => {
     case "FILTER_BY_STOCK":
       return {
         ...state,
-        byStock: !state.byStock,
+        inStock: !state.inStock,
       };
 
     case "FILTER_BY_RATING":
@@ -71,7 +67,7 @@ export const prodReducer = (state, action) => {
     case "CLEAR_FILTERS":
       return {
         byPrice: false,
-        byStock: false,
+        inStock: false,
         byRating: 0,
         searchQuery: "",
       };

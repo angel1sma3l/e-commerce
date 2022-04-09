@@ -1,4 +1,4 @@
-import { ArrowDownward, ArrowDropDown } from "@mui/icons-material";
+import { ArrowDropDown } from "@mui/icons-material";
 import React, { useState } from "react";
 
 const QuantitySelector = ({ inStock, selected = 1, onSelected }) => {

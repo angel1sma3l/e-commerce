@@ -43,7 +43,7 @@ const ProductDetails = () => {
       display: "flex",
       flex: isMobile ? null : 1,
       flexDirection: "column",
-      justifyContent: "flex-start",
+      justifyContent: "space-around",
       alignItems: "center",
     },
     infoContainer: {
@@ -107,20 +107,20 @@ const ProductDetails = () => {
             <div style={styles.desc}>{product.desc}</div>
             <div style={styles.desc}>In Stock: {product.inStock}</div>
           </div>
+          <Button
+            title={product.inStock === 0 ? "Out of Stock" : "Add to Cart"}
+            disabled={product.inStock === 0}
+            onClick={() => {
+              dispatch({
+                type: "ADD_TO_CART",
+                payload: product,
+              });
+              setShowAddedToCart(true);
+            }}
+            width={300}
+          />
         </div>
       </div>
-      <Button
-        title={product.inStock === 0 ? "Out of Stock" : "Add to Cart"}
-        disabled={product.inStock === 0}
-        onClick={() => {
-          dispatch({
-            type: "ADD_TO_CART",
-            payload: product,
-          });
-          setShowAddedToCart(true);
-        }}
-        width={300}
-      />
       <AddedToCartModal
         item={product}
         visible={showAddedToCart}

@@ -3,6 +3,7 @@ import Container from "../hoc/Container";
 import Input from "../components/Input";
 import useIsMobile from "../hooks/useIsMobile";
 import Button from "../components/Button";
+import logService from "../services/logService";
 
 const Register = () => {
   const isMobile = useIsMobile();
@@ -51,9 +52,15 @@ const Register = () => {
   return (
     <Container>
       <div style={styles.title}>Register</div>
-      <form onSubmit={() => console.log("submit....")} style={styles.wrapper}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          logService.error("Testing ....");
+        }}
+        style={styles.wrapper}
+      >
         <Input
-          required
+          // required
           onChange={handleChange}
           label="First Name"
           placeHolder="First Name"
@@ -61,7 +68,7 @@ const Register = () => {
           value={data.firstName}
         />
         <Input
-          required
+          // required
           onChange={handleChange}
           label="Last Name"
           placeHolder="Last Name"
@@ -69,7 +76,7 @@ const Register = () => {
           value={data.lastName}
         />
         <Input
-          required
+          // required
           onChange={handleChange}
           label="Email"
           placeHolder="Email"
@@ -78,7 +85,7 @@ const Register = () => {
           value={data.email}
         />
         <Input
-          required
+          // required
           minLength={5}
           onChange={handleChange}
           label="Password"
@@ -88,7 +95,7 @@ const Register = () => {
           value={data.password}
         />
         <Input
-          required
+          // required
           minLength={5}
           onChange={handleChange}
           label="Confirm password"

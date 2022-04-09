@@ -12,7 +12,11 @@ const CartContext = ({ children }) => {
     title: faker.commerce.productName(),
     desc: faker.commerce.productDescription(),
     price: faker.commerce.price(),
-    images: [{ image: faker.image.image() }],
+    images: [
+      { image: faker.image.image() },
+      { image: faker.image.image() },
+      { image: faker.image.image() },
+    ],
     inStock: faker.random.arrayElement([0, 3, 5, 7]),
     rating: faker.random.arrayElement([1, 2, 3, 4, 5]),
     size: faker.random.arrayElement([
@@ -23,6 +27,7 @@ const CartContext = ({ children }) => {
       "x-small",
     ]),
     color: faker.commerce.color(),
+    isFavorite: false,
   }));
 
   const [state, dispatch] = useReducer(cartReducer, {
@@ -33,7 +38,7 @@ const CartContext = ({ children }) => {
 
   const [prodState, prodDispatch] = useReducer(prodReducer, {
     byPrice: false,
-    byStock: false,
+    inStock: false,
     byRating: 0,
     searchQuery: "",
   });

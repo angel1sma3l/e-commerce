@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
 import { CartState } from "../context/CartContext";
-import ListItem from "../components/ListItem";
+import FavItem from "../components/FavItem";
 import Summary from "../components/Summary";
 import useIsMobile from "../hooks/useIsMobile";
 
 const Favorite = () => {
-  const [subTotal, setSubTotal] = useState(0);
   const {
-    state: { favorites },
+    state: { products },
   } = CartState();
   const isMobile = useIsMobile();
+
+  const favoritesProd = () => {
+    return products.filter((p) => p.isFavorite === true);
+  };
 
   const styles = {
     container: {
@@ -45,19 +47,19 @@ const Favorite = () => {
   return (
     <div style={styles.container}>
       <div style={styles.left}>
-        {favorites.length === 0 ? (
+        {favoritesProd().length === 0 ? (
           <div style={styles.title}>Favorite items will be saved here.</div>
         ) : (
           <div style={{ overflow: "scroll", height: "100vh" }}>
-            {favorites.map((prod) => (
-              <ListItem key={prod.id} item={prod} />
+            {favoritesProd().map((prod) => (
+              <FavItem key={prod.id} item={prod} />
             ))}
           </div>
         )}
       </div>
 
       <div style={styles.summary}>
-        <Summary total={subTotal} subtotal={subTotal} />
+        <Summary />
       </div>
     </div>
   );

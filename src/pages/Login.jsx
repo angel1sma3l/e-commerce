@@ -3,6 +3,8 @@ import Input from "../components/Input";
 import Container from "../hoc/Container";
 import useIsMobile from "../hooks/useIsMobile";
 import Button from "../components/Button";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const isMobile = useIsMobile();
@@ -10,6 +12,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const styles = {
     title: {
@@ -21,6 +26,16 @@ const Login = () => {
       flexDirection: "column",
       marginTop: 50,
     },
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let from = location.state?.from?.pathname || "/";
+
+    // login to server
+    login(data.email);
+
+    navigate(from, { replace: true });
   };
 
   const handleChange = async ({ target: input }) => {
@@ -38,7 +53,7 @@ const Login = () => {
   return (
     <Container>
       <div style={styles.title}>Login</div>
-      <form onSubmit={() => alert("submit....")} style={styles.wrapper}>
+      <form onSubmit={handleSubmit} style={styles.wrapper}>
         <Input
           required
           onChange={handleChange}

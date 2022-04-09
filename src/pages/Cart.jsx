@@ -12,6 +12,15 @@ const Cart = () => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    const calc = () => {
+      // calculate total
+      const total = cart.reduce((acc, curr) => {
+        return (acc += Number(curr.price) * curr.qty);
+      }, 0);
+
+      setSubTotal(total);
+    };
+
     calc();
   }, [cart]);
 
@@ -44,15 +53,6 @@ const Cart = () => {
     title: {
       fontSize: 50,
     },
-  };
-
-  const calc = () => {
-    // calculate total
-    const total = cart.reduce((acc, curr) => {
-      return (acc += Number(curr.price) * curr.qty);
-    }, 0);
-
-    setSubTotal(total);
   };
 
   return (

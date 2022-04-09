@@ -9,7 +9,12 @@ import dmicanoLogo from "../logo.png";
 import DarkSwitch from "./DarkSwitch";
 import { CartState } from "../context/CartContext";
 import useIsMobile from "../hooks/useIsMobile";
-import { CloseRounded, FavoriteBorderOutlined } from "@mui/icons-material";
+import {
+  CloseRounded,
+  FavoriteBorderOutlined,
+  Logout,
+} from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
 
 // const mediaQueryList = window.matchMedia("(max-width: 800px)");
 const data = [
@@ -19,13 +24,14 @@ const data = [
 ];
 
 const Navbar = ({ theme, onThemeChange }) => {
+  const [hover, setHover] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [showLoginMenu, setShowLoginMenu] = useState(false);
   const isMobile = useIsMobile();
-
   const {
     state: { cart },
   } = CartState();
+  const { user } = useAuth();
 
   const closeMenu = () => {
     setToggle(false);
@@ -34,14 +40,16 @@ const Navbar = ({ theme, onThemeChange }) => {
 
   const DropdownMenu = () => {
     return (
-      <div style={styles.dropDownContainer}>
-        {data.map((item) => (
+      <div style={styles.dropDownContainer} onMouseLeave={closeMenu}>
+        {data.map((item, index) => (
           <div key={item.id}>
             <NavLink
               style={({ isActive }) =>
                 isActive ? styles.activeLink : styles.dropDownlink
               }
               onClick={closeMenu}
+              onMouseEnter={() => setHover(index)}
+              onMouseLeave={() => setHover(null)}
               to={item.to}
             >
               {item.title}
@@ -53,9 +61,8 @@ const Navbar = ({ theme, onThemeChange }) => {
   };
 
   const DropdownLogin = () => {
-    const user = null;
     return (
-      <div style={styles.dropDownLoginContainer}>
+      <div style={styles.dropDownLoginContainer} onMouseLeave={closeMenu}>
         {!user && (
           <>
             <NavLink
@@ -83,7 +90,10 @@ const Navbar = ({ theme, onThemeChange }) => {
             style={({ isActive }) =>
               isActive ? styles.activeLink : styles.dropDownlink
             }
-            onClick={closeMenu}
+            onClick={() => {
+              Logout();
+              closeMenu();
+            }}
             to="/logout"
           >
             Sign out
@@ -127,13 +137,29 @@ const Navbar = ({ theme, onThemeChange }) => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      boxShadow: "2px 5px 20px gray",
+      boxShadow: "2px -10px 20px gray",
       textDecoration: "none",
-      width: isMobile ? 200 : 100,
+      minWidth: isMobile ? 200 : 100,
+      paddingLeft: 10,
+      paddingRight: 10,
       height: isMobile ? 50 : 40,
       borderRadius: isMobile ? 25 : 20,
       color: "white",
-      marginLeft: isMobile ? 0 : 20,
+      marginLeft: isMobile ? 0 : 5,
+      marginRight: isMobile ? 0 : 5,
+    },
+    activeLinkRight: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      boxShadow: "0px -15px 20px gray",
+      textDecoration: "none",
+      minWidth: 50,
+      minHeight: 50,
+      borderRadius: 25,
+      color: "white",
+      marginLeft: 5,
+      marginRight: 5,
     },
     container: {
       backgroundColor: "black",
@@ -157,6 +183,8 @@ const Navbar = ({ theme, onThemeChange }) => {
       left: 0,
       top: 80,
       paddingBottom: 20,
+      paddingTop: 20,
+      zIndex: 2,
       // transform: !toggle ? `translateX(-130%)` : `translateX(0px)`,
       // boxShadow: "1px 0px 30px gray",
     },
@@ -171,6 +199,7 @@ const Navbar = ({ theme, onThemeChange }) => {
       right: 0,
       top: 80,
       paddingBottom: 20,
+      zIndex: 3,
       // transform: !toggle ? `translateX(-130%)` : `translateX(0px)`,
       // boxShadow: "1px 0px 30px gray",
     },
@@ -179,10 +208,11 @@ const Navbar = ({ theme, onThemeChange }) => {
       alignItems: "center",
       justifyContent: "center",
       textDecoration: "none",
-      width: "100%",
+      width: 200,
       height: 50,
       borderRadius: 25,
       color: "white",
+      marginTop: 10,
       marginBottom: 10,
     },
     leftContainer: {
@@ -229,7 +259,22 @@ const Navbar = ({ theme, onThemeChange }) => {
       height: 40,
       borderRadius: 10,
       color: "white",
-      marginLeft: 20,
+      marginLeft: isMobile ? 0 : 5,
+      marginRight: isMobile ? 0 : 5,
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    navLinkRight: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textDecoration: "none",
+      minWidth: 50,
+      minHeight: 50,
+      borderRadius: 25,
+      color: "white",
+      marginLeft: 5,
+      marginRight: 5,
     },
     theme: {
       width: "80%",
@@ -270,15 +315,25 @@ const Navbar = ({ theme, onThemeChange }) => {
         </Link>
 
         <div style={styles.rightContainer}>
-          <NavLink to="/favorites" style={{ color: "white", marginRight: 20 }}>
+          <NavLink
+            to="/favorites"
+            style={({ isActive }) =>
+              isActive ? styles.activeLinkRight : styles.navLinkRight
+            }
+          >
             <FavoriteBorderOutlined color="inherit" />
-          </NavLink>
-          <Link to="/cart" style={{ marginRight: 20, color: "white" }}>
+          </NavLink>{" "}
+          <NavLink
+            to="/cart"
+            style={({ isActive }) =>
+              isActive ? styles.activeLinkRight : styles.navLinkRight
+            }
+          >
             <Badge badgeContent={cart.length} color="default">
               <ShoppingCartCheckoutOutlined fontSize="medium" color="inherit" />
             </Badge>
-          </Link>
-          <div style={{ marginRight: 20, cursor: "pointer" }}>
+          </NavLink>
+          <div style={{ marginRight: 10, marginLeft: 10, cursor: "pointer" }}>
             {!showLoginMenu ? (
               <AccountCircleOutlined
                 fontSize="medium"

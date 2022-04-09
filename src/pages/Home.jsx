@@ -1,5 +1,4 @@
 import React from "react";
-import Categories from "../components/Categories";
 import Slider from "../components/Slider";
 import images from "../data/images";
 import Products from "../components/Products";
