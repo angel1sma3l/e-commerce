@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
+      setScrollY(window.scrollY);
       window.scrollY > 200 ? setVisible(true) : setVisible(false);
     });
 
@@ -14,12 +16,25 @@ const ScrollToTop = () => {
     };
   }, []);
 
+  const handleScroll = () => {
+    let pixels = scrollY;
+    let interv;
+
+    // scroll -30 pixels each 10 milsec
+    interv = setInterval(() => {
+      pixels <= 0 ? (pixels = 0) : (pixels -= 40);
+      window.scroll(0, pixels);
+
+      if (pixels <= 0) clearInterval(interv);
+    }, 10);
+  };
+
   const styled = {
-    backgroundColor: "white",
-    color: "black",
+    backgroundColor: "var(--text-primary)",
+    color: "var(--background)",
     width: 100,
     height: 50,
-    display: visible ? "flex" : "none",
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,
@@ -27,10 +42,11 @@ const ScrollToTop = () => {
     bottom: 50,
     cursor: "pointer",
     zIndex: 2,
-    transition: "all 2s ease",
+    transform: visible ? " scale(1)" : "scale(0)",
+    transition: "all 0.5s ease",
   };
   return (
-    <div style={styled} onClick={() => window.scroll(0, 0)}>
+    <div style={styled} onClick={handleScroll}>
       <ArrowUpward />
     </div>
   );
