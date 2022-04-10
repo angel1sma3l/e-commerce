@@ -6,22 +6,26 @@ const ImageSlider = ({ data, showArrow = false, height, width }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [hover, setHover] = useState(false);
   const isMobile = useIsMobile();
-  const totalOfSlides = data.length - 1;
+  const totalImages = data.length - 1;
 
   useEffect(() => {
     let interv = null;
-    let index = 0;
-    if (hover) {
-      setSlideIndex(1);
-      interv = setInterval(() => {
-        if (index < totalOfSlides) index++;
-        else index = 0;
-        setSlideIndex(index);
-      }, 1300);
-    } else setSlideIndex(0);
+    let index = 1; // start in 1 to fix delay when sliding the first time
 
-    return () => clearInterval(interv);
-  }, [hover, totalOfSlides]);
+    if (hover) {
+      setSlideIndex(totalImages > 0 ? 1 : 0); // moving slide inmediately
+
+      interv = setInterval(() => {
+        index < totalImages ? index++ : (index = 0);
+        setSlideIndex(index);
+      }, 2000);
+    }
+
+    return () => {
+      clearInterval(interv);
+      setSlideIndex(0);
+    };
+  }, [hover, totalImages]);
 
   const styles = {
     leftArrow: {
@@ -69,16 +73,16 @@ const ImageSlider = ({ data, showArrow = false, height, width }) => {
       backgroundColor: "white",
       color: "black",
       display: "flex",
-      width: `${totalOfSlides * 100}%`,
-      transition: "all 1.5s ease",
+      width: `${totalImages * 100}%`,
+      transition: "all 1s ease",
       transform: `translateX(${slideIndex * -100}%)`, // moving screen -100%
     },
   };
 
   const handleClick = (direction) => {
     if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : totalOfSlides);
-    } else setSlideIndex(slideIndex < totalOfSlides ? slideIndex + 1 : 0);
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : totalImages);
+    } else setSlideIndex(slideIndex < totalImages ? slideIndex + 1 : 0);
   };
 
   return (

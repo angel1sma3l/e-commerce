@@ -41,7 +41,8 @@ const ProductsPage = () => {
         <Col flex={isMobile ? null : 1}>
           <div
             style={{
-              height: isMobile ? null : "100vh",
+              // height: isMobile ? null : "100vh",
+              position: isMobile ? "static" : "fixed",
             }}
           >
             <Filters />

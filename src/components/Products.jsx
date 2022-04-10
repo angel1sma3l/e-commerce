@@ -20,9 +20,11 @@ const Products = ({ data }) => {
       <div
         style={{
           display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           flexWrap: "wrap",
           overflow: "scroll",
-          width: "inherit",
+          width: "100%",
         }}
       >
         {data.map((item) => (
