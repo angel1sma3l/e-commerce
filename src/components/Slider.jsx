@@ -3,11 +3,38 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import useIsMobile from "../hooks/useIsMobile";
 
-const Slider = ({ data, showArrow = true }) => {
+const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const isMobile = useIsMobile();
+  const totalSlide = data.length - 1;
+
+  useEffect(() => {
+    let interv = null;
+    let index = slideIndex;
+
+    if (auto) {
+      interv = setInterval(() => {
+        index < totalSlide ? index++ : (index = 0);
+        setSlideIndex(index);
+      }, time);
+    }
+
+    return () => {
+      clearInterval(interv);
+    };
+  }, [auto, slideIndex, time, totalSlide]);
 
   const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: "#00000011",
+      width: "100vw",
+      margin: 0,
+      overflow: "hidden",
+      position: "relative",
+    },
     leftArrow: {
       backgroundColor: "#00000044",
       display: "flex",
@@ -38,50 +65,42 @@ const Slider = ({ data, showArrow = true }) => {
       borderRadius: 25,
       zIndex: 2,
     },
-    slide: {
-      display: "flex",
-      flexWrap: isMobile ? "wrap" : "nowrap",
-      width: "100vw",
-      height: "100%",
-    },
-    infoContainer: {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-      height: "auto",
-      marginLeft: 30,
-      justifyContent: "center",
-    },
-    container: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      backgroundColor: "#00000011",
-      // height: "100vh",
-      width: "100vw",
-      overflow: "hidden",
-      position: "relative",
-    },
-    desc: { fontSize: 38 },
-    image: { height: "100%", width: "100%", objectFit: "contain" },
-    imageContainer: {
-      display: "flex",
-      alignItems: "center",
-      height: "100%",
-      width: "100%",
-      justifyContent: "center",
-    },
-    title: {
-      fontSize: 100,
-      display: "flex",
-      width: "100%",
-    },
     wrapper: {
+      display: "flex",
       backgroundColor: "white",
       color: "black",
-      display: "flex",
-      transition: "all 1.5s ease",
+      transition: "all 2s ease",
       transform: `translateX(${slideIndex * -100}vw)`, // moving screen -100vw
+    },
+    slide: {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      width: "100vw",
+    },
+    leftCol: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: isMobile ? "100%" : "50%",
+    },
+    rightCol: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-around",
+      width: isMobile ? "100%" : "50%",
+    },
+    desc: {
+      display: "flex",
+      fontSize: 38,
+      width: "90%",
+    },
+    image: { height: "auto", width: "100%", objectFit: "contain" },
+    title: {
+      display: "flex",
+      fontSize: 100,
+      width: "90%",
     },
   };
 
@@ -103,11 +122,11 @@ const Slider = ({ data, showArrow = true }) => {
       <div style={styles.wrapper}>
         {data.map((item, index) => (
           <div key={index} style={styles.slide}>
-            <div style={styles.imageContainer}>
+            <div style={styles.leftCol}>
               <img src={item.image} alt={item.title} style={styles.image} />
             </div>
 
-            <div style={styles.infoContainer}>
+            <div style={styles.rightCol}>
               <div style={styles.title}>{item.title}</div>
               <div style={styles.desc}>{item.desc}</div>
               <Button title="Shop Now" width={300} border />
