@@ -67,8 +67,6 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
     },
     wrapper: {
       display: "flex",
-      backgroundColor: "white",
-      color: "black",
       transition: "all 2s ease",
       transform: `translateX(${slideIndex * -100}vw)`, // moving screen -100vw
     },
@@ -79,9 +77,9 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
       width: "100vw",
     },
     leftCol: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      // display: "flex",
+      // alignItems: "center",
+      // justifyContent: "center",
       width: isMobile ? "100%" : "50%",
     },
     rightCol: {
@@ -90,6 +88,8 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
       alignItems: "center",
       justifyContent: "space-around",
       width: isMobile ? "100%" : "50%",
+      color: "black",
+      backgroundColor: "white",
     },
     desc: {
       display: "flex",
@@ -129,7 +129,7 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
             <div style={styles.rightCol}>
               <div style={styles.title}>{item.title}</div>
               <div style={styles.desc}>{item.desc}</div>
-              <Button title="Shop Now" width={300} border />
+              <Button title="Learn more" width={300} border />
             </div>
           </div>
         ))}
