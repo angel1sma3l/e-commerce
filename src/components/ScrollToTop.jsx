@@ -8,7 +8,7 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollY(window.scrollY);
-      window.scrollY > 200 ? setVisible(true) : setVisible(false);
+      window.scrollY > 800 ? setVisible(true) : setVisible(false);
     });
 
     return () => {
@@ -22,7 +22,7 @@ const ScrollToTop = () => {
 
     // scroll -30 pixels each 10 milsec
     interv = setInterval(() => {
-      pixels <= 0 ? (pixels = 0) : (pixels -= 40);
+      pixels <= 0 ? (pixels = 0) : (pixels -= 50);
       window.scroll(0, pixels);
 
       if (pixels <= 0) clearInterval(interv);

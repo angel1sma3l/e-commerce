@@ -2,7 +2,7 @@ const Container = ({
   children,
   align = "center",
   gap,
-  justifyContent = "center",
+  justifyContent,
   flexWrap = "wrap",
 }) => {
   return (
@@ -11,6 +11,7 @@ const Container = ({
         alignItems: align,
         justifyContent: justifyContent,
         display: "flex",
+        flexDirection: "column",
         flexWrap: flexWrap,
         gap: gap,
         // flexFlow: "row wrap", // both togueter flexdirection and flexwrap

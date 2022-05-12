@@ -5,7 +5,10 @@ const Row = ({
   flex,
   justifyContent,
   flexWrap = "wrap",
-  verticalMargin = 0,
+  mt,
+  mb,
+  width = "100%",
+  minHeight,
 }) => {
   return (
     <div
@@ -18,9 +21,10 @@ const Row = ({
         flex: flex,
         gap: gap,
         // flexFlow: "row wrap", // both togueter flexdirection and flexwrap
-        marginTop: verticalMargin,
-        marginBottom: verticalMargin,
-        width: "100%",
+        marginTop: mt,
+        marginBottom: mb,
+        minHeight: minHeight,
+        width: width,
       }}
     >
       {children}

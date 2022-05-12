@@ -24,14 +24,14 @@ const ListItem = ({ item }) => {
       alignItems: "center",
       justifyContent: "center",
       marginTop: 30,
-      width: "100%",
-      minHeight: 150,
-      boxShadow: "1px 1px 20px gray",
+      width: "90%",
+      // minHeight: 200,
+      boxShadow: "0px 0px 20px gray",
     },
     imageContainer: {
       display: "flex",
       hight: "100%",
-      width: "100%",
+      width: "95%",
       flex: 1,
       backgroundColor: "var(--background)",
       color: "var(--text-primary)",
@@ -42,20 +42,21 @@ const ListItem = ({ item }) => {
       display: "flex",
       flex: 2,
       height: "100%",
-      padding: 10,
+      padding: 30,
     },
     info: {
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
+      justifyContent: "center",
       width: "90%",
-      height: "90%",
+      height: "100%",
     },
     buttons: {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
       width: 80,
     },
   };
@@ -66,13 +67,13 @@ const ListItem = ({ item }) => {
         <img
           src={item.images[0].image}
           alt={item.title}
-          style={{ width: "95%", height: 150, objectFit: "contain" }}
+          style={{ width: "auto", height: 170, objectFit: "contain" }}
         />
       </div>
 
       <div style={styles.infoContainer}>
         <div style={styles.info}>
-          <div style={{ fontSize: 25 }}>{item.title}</div>
+          <div style={{ fontSize: 30, lineHeight: 1.5 }}>{item.title}</div>
           <div>price: US${item.price}</div>
           <div>Size: {item.size}</div>
           <div>Color: {item.color.toUpperCase()}</div>
@@ -92,6 +93,7 @@ const ListItem = ({ item }) => {
             />
 
             <DeleteRounded
+              style={{ cursor: "pointer" }}
               onClick={() =>
                 dispatch({ type: "REMOVE_FROM_CART", payload: item })
               }

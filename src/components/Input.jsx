@@ -11,17 +11,18 @@ const Input = ({
   onChange,
   placeHolder,
   type = "text",
+  width = "95%",
   value,
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const styles = {
     container: {
-      backgroundColor: dark ? "black" : "inherit",
+      backgroundColor: dark ? "black" : "var(--background)",
       color: "var(--text-primary)",
-      width: "100%",
+      width: width,
       alignItems: "center",
       display: "flex",
       flexDirection: "column",
@@ -42,11 +43,11 @@ const Input = ({
     label: {
       fontSize: 23,
       fontWeight: "bold",
-      color: "gray",
+      backgroundColor: "inherit",
+      color: dark ? "lightgray" : "gray",
       paddingRight: 10,
       paddingLeft: 10,
       position: "absolute",
-      backgroundColor: dark ? "black" : "inherit",
       top: 5,
       left: 30,
       zIndex: 2,

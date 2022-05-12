@@ -19,6 +19,8 @@ import Container from "./hoc/Container";
 import Dashboard from "./pages/admin/Dashboard";
 import RequireAuth from "./components/RequireAuth";
 import Logout from "./components/Logout";
+import Account from "./pages/Account";
+import RequireAdminAuth from "./components/RequireAdminAuth";
 
 // checking if user has set a prefer theme in the browser
 const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -42,14 +44,22 @@ const App = () => {
         <ToastContainer />
         <div style={styles.app} data-theme={theme}>
           <Navbar theme={theme} onThemeChange={(t) => setTheme(t)} />
-          <Announcement />
+          {/* <Announcement /> */}
           <Container>
             <Routes>
               <Route
-                path="/dashboard"
+                path="/admin"
+                element={
+                  <RequireAdminAuth>
+                    <Dashboard />
+                  </RequireAdminAuth>
+                }
+              />
+              <Route
+                path="/account"
                 element={
                   <RequireAuth>
-                    <Dashboard />
+                    <Account />
                   </RequireAuth>
                 }
               />
@@ -61,7 +71,6 @@ const App = () => {
                   </RequireAuth>
                 }
               />
-
               <Route path="/" exact element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/cart" element={<Cart />} />

@@ -86,18 +86,25 @@ const Navbar = ({ theme, onThemeChange }) => {
           </>
         )}
         {user && (
-          <NavLink
-            style={({ isActive }) =>
-              isActive ? styles.activeLink : styles.dropDownlink
-            }
-            onClick={() => {
-              Logout();
-              closeMenu();
-            }}
-            to="/logout"
-          >
-            Sign out
-          </NavLink>
+          <>
+            <NavLink
+              style={styles.dropDownlink}
+              onClick={() => closeMenu()}
+              to={user?.isAdmin ? "/admin" : "/account"}
+            >
+              {user?.isAdmin ? "Dashboard" : "Account"}
+            </NavLink>
+            <NavLink
+              style={styles.dropDownlink}
+              onClick={() => {
+                Logout();
+                closeMenu();
+              }}
+              to="/logout"
+            >
+              Sign out
+            </NavLink>
+          </>
         )}
         <div style={styles.theme}>
           <DarkSwitch theme={theme} onThemeChange={onThemeChange} />
@@ -315,24 +322,31 @@ const Navbar = ({ theme, onThemeChange }) => {
         </Link>
 
         <div style={styles.rightContainer}>
-          <NavLink
-            to="/favorites"
-            style={({ isActive }) =>
-              isActive ? styles.activeLinkRight : styles.navLinkRight
-            }
-          >
-            <FavoriteBorderOutlined color="inherit" />
-          </NavLink>{" "}
-          <NavLink
-            to="/cart"
-            style={({ isActive }) =>
-              isActive ? styles.activeLinkRight : styles.navLinkRight
-            }
-          >
-            <Badge badgeContent={cart.length} color="default">
-              <ShoppingCartCheckoutOutlined fontSize="medium" color="inherit" />
-            </Badge>
-          </NavLink>
+          {!user?.isAdmin && (
+            <>
+              <NavLink
+                to="/favorites"
+                style={({ isActive }) =>
+                  isActive ? styles.activeLinkRight : styles.navLinkRight
+                }
+              >
+                <FavoriteBorderOutlined color="inherit" />
+              </NavLink>
+              <NavLink
+                to="/cart"
+                style={({ isActive }) =>
+                  isActive ? styles.activeLinkRight : styles.navLinkRight
+                }
+              >
+                <Badge badgeContent={cart.length} color="default">
+                  <ShoppingCartCheckoutOutlined
+                    fontSize="medium"
+                    color="inherit"
+                  />
+                </Badge>
+              </NavLink>
+            </>
+          )}
           <div style={{ marginRight: 10, marginLeft: 10, cursor: "pointer" }}>
             {!showLoginMenu ? (
               <AccountCircleOutlined

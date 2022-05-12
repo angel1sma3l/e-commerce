@@ -1,20 +1,19 @@
 import { AddAPhoto } from "@mui/icons-material";
 import Close from "@mui/icons-material/Close";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-const ImageInput = ({ bgColor, imageUrl, onSelectedImage, size = 50 }) => {
-  const [image, setImage] = useState(imageUrl);
-
+const ImageInput = ({
+  bgColor,
+  imageUrl,
+  onSelectedImage,
+  onRemove,
+  size = 100,
+}) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const url = URL.createObjectURL(file);
 
-    setImage(url);
     onSelectedImage({ file, url });
-  };
-
-  const handleRemove = () => {
-    setImage(null);
   };
 
   const handleClick = () => {
@@ -26,6 +25,7 @@ const ImageInput = ({ bgColor, imageUrl, onSelectedImage, size = 50 }) => {
   const styles = {
     button: {
       display: "flex",
+      fontSize: size - 50,
       alignItems: "center",
       justifyContent: "center",
       width: size,
@@ -40,39 +40,41 @@ const ImageInput = ({ bgColor, imageUrl, onSelectedImage, size = 50 }) => {
       alignSelf: "flex-start",
       position: "absolute",
       cursor: "pointer",
+      left: 5,
+      top: 5,
     },
     container: {
-      alignItems: "flex-end",
-      border: "1px solid white",
+      alignItems: "center",
+      boxShadow: "0px 0px 10px gray",
       display: "flex",
-      justifyContent: "flex-start",
+      justifyContent: "center",
       margin: 20,
       position: "relative",
-      minHeight: size + 20,
-      minWidth: size + 20,
+      minHeight: 200,
+      minWidth: 200,
     },
     image: {
-      //   display: imageUrl ? "flex" : "none",
+      // display: imageUrl ? "flex" : "none",
       objectFit: "contain",
       //   objectPosition: "0% 20%",
-      width: "auto",
-      height: "50vh",
+      width: "100%",
+      height: 400,
     },
   };
 
   return (
     <div style={styles.container}>
-      {image && <img src={image} alt="file" style={styles.image} />}
-      {image && (
-        <div style={styles.removeBtn} onClick={handleRemove}>
+      {imageUrl && <img src={imageUrl} alt="file" style={styles.image} />}
+      {imageUrl && (
+        <div style={styles.removeBtn} onClick={onRemove}>
           <Close />
         </div>
       )}
 
-      {!image && (
-        <div style={{ position: "absolute", bottom: 10, left: 10 }}>
+      {!imageUrl && (
+        <div>
           <div onClick={handleClick} style={styles.button}>
-            <AddAPhoto />
+            <AddAPhoto fontSize="inherit" />
             <input
               style={{ display: "none" }}
               ref={hiddenInputRef}

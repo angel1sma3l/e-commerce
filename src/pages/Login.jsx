@@ -6,14 +6,15 @@ import useIsMobile from "../hooks/useIsMobile";
 import Button from "../components/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import authService from "../services/authService";
 
 const Login = () => {
+  const { setUser } = useAuth();
   const isMobile = useIsMobile();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,6 +24,7 @@ const Login = () => {
     },
     wrapper: {
       width: isMobile ? "90vw" : "50%",
+      alignItems: "center",
       display: "flex",
       flexDirection: "column",
       marginTop: 50,
@@ -31,10 +33,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let from = location.state?.from?.pathname || "/";
+    let from = location.state?.from?.pathname || "/account";
 
     // login to server
-    login(data.email);
+    const user = authService.login(data.email);
+    setUser(user);
+
+    if (user?.isAdmin) from = "/admin";
 
     navigate(from, { replace: true });
   };
@@ -64,6 +69,7 @@ const Login = () => {
             name="email"
             type="email"
             value={data.email}
+            error="error to login"
           />
           <Input
             required
@@ -76,7 +82,7 @@ const Login = () => {
             value={data.password}
           />
 
-          <Button type="submit" title="Login" width={300} alignSelf="center" />
+          <Button type="submit" title="Login" width={300} />
         </form>
       </Col>
     </Container>

@@ -3,6 +3,10 @@ import { CartState } from "../context/CartContext";
 import ListItem from "../components/ListItem";
 import Summary from "../components/Summary";
 import useIsMobile from "../hooks/useIsMobile";
+import Container from "../hoc/Container";
+import Row from "../hoc/Row";
+import Col from "../hoc/Col";
+import Text from "../components/Text";
 
 const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
@@ -24,55 +28,45 @@ const Cart = () => {
     calc();
   }, [cart]);
 
-  const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      minHeight: "100vh",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "100vw",
-      overflow: "hidden",
-    },
-    left: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      width: isMobile ? "100%" : "50%",
-      minHeight: "50vh",
-    },
-    summary: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      width: isMobile ? "100%" : "35%",
-    },
-    title: {
-      fontSize: 50,
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.left}>
-        {cart.length === 0 ? (
-          <div style={styles.title}>{"Cart is Empty"}</div>
-        ) : (
-          <div style={{ overflow: "scroll", height: "100vh" }}>
-            {cart.map((prod) => (
-              <ListItem key={prod.id} item={prod} />
-            ))}
-          </div>
-        )}
-      </div>
+    <Container>
+      <Row justifyContent="center" mt={40} mb={100}>
+        <Text size={80}>Your Cart</Text>
+      </Row>
 
-      <div style={styles.summary}>
-        <Summary total={subTotal} subtotal={subTotal} />
-      </div>
-    </div>
+      <Row flexWrap="wrap">
+        <Col flex={!isMobile ? 2 : null}>
+          {cart.length === 0 ? (
+            <Text color="orange" size={50}>
+              Cart is Empty
+            </Text>
+          ) : (
+            <div
+              style={{
+                overflow: "scroll",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                maxHeight: "90vh",
+                width: "100%",
+              }}
+            >
+              {cart.map((prod) => (
+                <ListItem key={prod.id} item={prod} />
+              ))}
+            </div>
+          )}
+        </Col>
+
+        <Col flex={!isMobile ? 1 : null}>
+          <Summary total={subTotal} subtotal={subTotal} />
+        </Col>
+      </Row>
+
+      <Row mt={50} justifyContent="center">
+        <Text size={40}>Recomended</Text>
+      </Row>
+    </Container>
   );
 };
 
