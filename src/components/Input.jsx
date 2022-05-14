@@ -7,6 +7,8 @@ const Input = ({
   onShowHideClick,
   dark,
   label,
+  fontColor = "gray",
+  bgColor = "var(--background)",
   name,
   onChange,
   placeHolder,
@@ -20,8 +22,8 @@ const Input = ({
 
   const styles = {
     container: {
-      backgroundColor: dark ? "black" : "var(--background)",
-      color: "var(--text-primary)",
+      backgroundColor: bgColor,
+      color: fontColor,
       width: width,
       alignItems: "center",
       display: "flex",
@@ -36,28 +38,30 @@ const Input = ({
     error: {
       display: "flex",
       width: "95%",
-      color: "orange",
-      paddingLeft: 20,
+      color: "red",
+      // paddingLeft: 20,
       paddingBottom: 10,
+      marginTop: 15,
+      fontSize: 23,
     },
     label: {
       fontSize: 23,
       fontWeight: "bold",
-      backgroundColor: "inherit",
-      color: dark ? "lightgray" : "gray",
+      backgroundColor: bgColor,
+      color: fontColor,
       paddingRight: 10,
       paddingLeft: 10,
       position: "absolute",
       top: 5,
       left: 30,
       zIndex: 2,
-      opacity: focused ? 1 : 0,
+      opacity: value ? 1 : focused ? 1 : 0,
       transition: "all 0.5s ease",
     },
     input: {
       display: "flex",
       backgroundColor: dark ? "black" : "inherit",
-      color: "var(--text-primary)",
+      color: fontColor,
       width: "100%",
       paddingLeft: 5,
       paddingRight: 50,
@@ -70,7 +74,7 @@ const Input = ({
       borderBottom: "2px solid gray",
     },
     inputContainer: {
-      backgroundColor: dark ? "black" : "inherit",
+      backgroundColor: bgColor,
       display: "flex",
       alignItems: "center",
       width: "95%",
@@ -82,10 +86,17 @@ const Input = ({
     },
   };
 
+  const PlaceholderAsterisk = () => {
+    return <div style={{ color: "red" }}>{placeHolder}</div>;
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.inputContainer}>
-        <label style={styles.label}>{label}</label>
+        <label style={styles.label}>
+          {label}
+          {props.required ? " *" : null}
+        </label>
         <input
           style={styles.input}
           {...props}
@@ -94,7 +105,7 @@ const Input = ({
           }
           name={name}
           id={name}
-          placeholder={placeHolder}
+          placeholder={`${placeHolder} ${props.required ? "*" : ""}`}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           onChange={onChange}

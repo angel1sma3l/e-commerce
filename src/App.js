@@ -6,12 +6,13 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductsDetails from "./pages/ProductDetails";
 import Register from "./pages/Register";
+import GuestCheckout from "./pages/GuestCheckout";
 import NotFound from "./pages/NotFound";
-import Announcement from "./components/Announcement";
+// import Announcement from "./components/Announcement";
 import CartContext from "./context/CartContext";
 import Favorite from "./pages/Favorite";
 import AuthContext from "./context/AuthContext";
@@ -21,6 +22,7 @@ import RequireAuth from "./components/RequireAuth";
 import Logout from "./components/Logout";
 import Account from "./pages/Account";
 import RequireAdminAuth from "./components/RequireAdminAuth";
+import PreCheckout from "./pages/PreCheckout";
 
 // checking if user has set a prefer theme in the browser
 const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -74,7 +76,9 @@ const App = () => {
               <Route path="/" exact element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/pre-checkout" element={<PreCheckout />} />
+              <Route path="/guest-checkout" element={<GuestCheckout />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/register" element={<Register />} />
               <Route path="/products" element={<ProductsPage />} />

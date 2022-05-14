@@ -7,6 +7,7 @@ import Container from "../hoc/Container";
 import Row from "../hoc/Row";
 import Col from "../hoc/Col";
 import Text from "../components/Text";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
@@ -14,6 +15,7 @@ const Cart = () => {
     state: { cart },
   } = CartState();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const calc = () => {
@@ -59,7 +61,11 @@ const Cart = () => {
         </Col>
 
         <Col flex={!isMobile ? 1 : null}>
-          <Summary total={subTotal} subtotal={subTotal} />
+          <Summary
+            total={subTotal}
+            subtotal={subTotal}
+            onClick={() => navigate("/pre-checkout")}
+          />
         </Col>
       </Row>
 

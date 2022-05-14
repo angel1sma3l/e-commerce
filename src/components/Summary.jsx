@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
+import { CartState } from "../context/CartContext";
 import formatter from "../utility/formatter";
 
-const Summary = ({ subtotal = 0, taxes = "--", total = 0, shipping = 0 }) => {
+const Summary = ({ onClick, noButton = false, shipping = 0, taxes = 0 }) => {
+  const {
+    state: { cart },
+  } = CartState();
+  const [total, setTotal] = useState(0);
+  const [subtotal, setSubTotal] = useState(0);
+  const [items, setItems] = useState(0);
+
   const styles = {
     container: {
       flexDirection: "column",
@@ -44,10 +52,28 @@ const Summary = ({ subtotal = 0, taxes = "--", total = 0, shipping = 0 }) => {
     },
   };
 
+  useEffect(() => {
+    const calc = () => {
+      // calculate total
+      const total = cart.reduce((acc, curr) => {
+        return (acc += Number(curr.price) * curr.qty);
+      }, 0);
+
+      setItems(cart.length);
+      setSubTotal(total);
+      setTotal(total);
+    };
+
+    calc();
+  }, [cart, total, subtotal]);
+
   return (
     <div style={styles.container}>
       <div style={styles.wrapper}>
         <div style={styles.title}>Summary</div>
+        <div style={styles.row}>
+          <p style={styles.text}>Items: </p> {items}
+        </div>
         <div style={styles.row}>
           <p style={styles.text}>SubTotal: </p> {formatter.currency(subtotal)}
         </div>
@@ -61,12 +87,15 @@ const Summary = ({ subtotal = 0, taxes = "--", total = 0, shipping = 0 }) => {
           <div style={styles.total}>Total:</div>
           <div styles={styles.total}>{formatter.currency(total)}</div>
         </div>
-        <Button
-          title="Checkout"
-          bgColor="var(--text-primary)"
-          fontColor="var(--background)"
-          width="90%"
-        />
+        {!noButton && (
+          <Button
+            title="Checkout"
+            bgColor="var(--text-primary)"
+            fontColor="var(--background)"
+            width="90%"
+            onClick={total === 0 ? null : onClick}
+          />
+        )}
       </div>
     </div>
   );
