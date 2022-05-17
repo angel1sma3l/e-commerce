@@ -1,6 +1,9 @@
 import React from "react";
+import useIsMobile from "../hooks/useIsMobile";
 
 const Text = ({ children, size, width, fontWeight, color, lineHeight }) => {
+  const isMobile = useIsMobile();
+
   return (
     <div
       style={{
@@ -9,6 +12,7 @@ const Text = ({ children, size, width, fontWeight, color, lineHeight }) => {
         fontWeight: fontWeight,
         color: color,
         lineHeight: lineHeight,
+        transform: isMobile ? "scale(0.8)" : "scale(1)",
       }}
     >
       {children}

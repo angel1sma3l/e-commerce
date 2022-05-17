@@ -3,7 +3,7 @@ const Container = ({
   align = "center",
   gap,
   justifyContent,
-  flexWrap = "wrap",
+  flexWrap,
 }) => {
   return (
     <div
@@ -15,10 +15,8 @@ const Container = ({
         flexWrap: flexWrap,
         gap: gap,
         // flexFlow: "row wrap", // both togueter flexdirection and flexwrap
-        marginTop: 0,
-        marginBottom: 0,
+        margin: 0,
         width: "100vw",
-        minHeight: "100vh",
         overflow: "hidden",
       }}
     >

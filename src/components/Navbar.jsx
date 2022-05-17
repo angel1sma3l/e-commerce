@@ -240,7 +240,7 @@ const Navbar = ({ theme, onThemeChange }) => {
       width: "100%",
     },
     brandName: {
-      fontSize: 30,
+      fontSize: 20,
       color: "white",
       textDecoration: "none",
     },

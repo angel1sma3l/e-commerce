@@ -34,7 +34,9 @@ const App = () => {
     app: {
       display: "flex",
       flexDirection: "column",
-      minWidth: "100vw",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "100vw",
       backgroundColor: "var(--background)",
       color: "var(--text-primary)",
     },
@@ -50,7 +52,7 @@ const App = () => {
           <Container>
             <Routes>
               <Route
-                path="/admin"
+                path="/dashboard"
                 element={
                   <RequireAdminAuth>
                     <Dashboard />

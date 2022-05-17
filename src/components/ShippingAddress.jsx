@@ -72,7 +72,34 @@ const ShippingAddress = ({ onClick }) => {
 
   return (
     <form onSubmit={handleSubmit} style={styles.container}>
-      <div style={{ width: "100%" }}>all field marked with * are required</div>
+      <div style={{ width: "100%" }}>All field marked with * are required</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "nowrap",
+          width: "100%",
+        }}
+      >
+        <Input
+          required
+          onChange={handleChange}
+          label="First Name"
+          placeHolder="First Name"
+          name="firstName"
+          value={data.firstName}
+          error={errors.firstName}
+        />
+        <Input
+          required
+          onChange={handleChange}
+          label="Last Name"
+          placeHolder="Last Name"
+          name="firstName"
+          value={data.lastName}
+          error={errors.lastName}
+        />
+      </div>
       <Input
         required
         onChange={handleChange}
@@ -117,6 +144,15 @@ const ShippingAddress = ({ onClick }) => {
         name="zip"
         value={data.zip}
         error={errors.zip}
+      />
+      <Input
+        required
+        onChange={handleChange}
+        label="Phone"
+        placeHolder="Phone"
+        name="phone"
+        value={data.phone}
+        error={errors.phone}
       />
       <Input
         required
