@@ -1,12 +1,27 @@
-# Getting Started with Create React App
+# A e-commerce template created with React.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+User friendly, modern, very fast and beautiful React e-commerce platform. Dynamic shooping experience.
+
+it work in any device, mobile or desktop.
+
+Features:
+
+- Dark mode.
+- Favorite.
+- Cart.
+- Sign in, Sign up.
+
+I use useContext to handle cart and favorite.
+
+Note: Backend server is on development.
+
+Note: The main branch is the development version and it may be unstable.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
