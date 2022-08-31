@@ -2,7 +2,7 @@ import React from "react";
 import Product from "../components/Product";
 import useIsMobile from "../hooks/useIsMobile";
 
-const Products = ({ data }) => {
+const Products = ({ data = [] }) => {
   const isMobile = useIsMobile();
 
   return (

@@ -9,6 +9,7 @@ const Row = ({
   mb,
   width = "100%",
   minHeight,
+  maxHeight,
 }) => {
   return (
     <div
@@ -23,8 +24,10 @@ const Row = ({
         // flexFlow: "row wrap", // both togueter flexdirection and flexwrap
         marginTop: mt,
         marginBottom: mb,
-        minHeight: minHeight,
-        width: width,
+        minHeight,
+        maxHeight,
+        width,
+        overflow: "scroll",
       }}
     >
       {children}
