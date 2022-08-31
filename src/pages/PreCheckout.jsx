@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import Text from "../components/Text";
+import MyText from "../components/MyText";
 import Col from "../hoc/Col";
 import Container from "../hoc/Container";
 // import Row from "../hoc/Row";
@@ -11,11 +11,11 @@ const PreCheckout = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Text size={80}>Checkout</Text>
+      <MyText size={80}>Checkout</MyText>
       <Col height="30vh">
-        <Text size={30}>
+        <MyText size={30}>
           You can check out as Guest and create an account later.
-        </Text>
+        </MyText>
         <Button
           title="Continue as Guest"
           width={300}
@@ -27,7 +27,7 @@ const PreCheckout = () => {
       <Login />
 
       <Col height="30vh">
-        <Text size={50}>New Customer</Text>
+        <MyText size={50}>New Customer</MyText>
         <Button
           onClick={() => navigate("/register")}
           title="Create Account"

@@ -1,7 +1,7 @@
 import React from "react";
 import useIsMobile from "../hooks/useIsMobile";
 
-const Text = ({ children, size, width, fontWeight, color, lineHeight }) => {
+const MyText = ({ children, size, width, fontWeight, color, lineHeight }) => {
   const isMobile = useIsMobile();
 
   return (
@@ -20,4 +20,4 @@ const Text = ({ children, size, width, fontWeight, color, lineHeight }) => {
   );
 };
 
-export default Text;
+export default MyText;

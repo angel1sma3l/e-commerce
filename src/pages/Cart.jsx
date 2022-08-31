@@ -6,7 +6,7 @@ import useIsMobile from "../hooks/useIsMobile";
 import Container from "../hoc/Container";
 import Row from "../hoc/Row";
 import Col from "../hoc/Col";
-import Text from "../components/Text";
+import MyText from "../components/MyText";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -33,15 +33,15 @@ const Cart = () => {
   return (
     <Container>
       <Row justifyContent="center" mt={40} mb={100}>
-        <Text size={80}>Your Cart</Text>
+        <MyText size={80}>Your Cart</MyText>
       </Row>
 
       <Row flexWrap="wrap">
         <Col flex={!isMobile ? 2 : null}>
           {cart.length === 0 ? (
-            <Text color="orange" size={50}>
+            <MyText color="orange" size={50}>
               Cart is Empty
-            </Text>
+            </MyText>
           ) : (
             <div
               style={{
@@ -70,7 +70,7 @@ const Cart = () => {
       </Row>
 
       <Row mt={50} justifyContent="center">
-        <Text size={40}>Recomended</Text>
+        <MyText size={40}>Recomended</MyText>
       </Row>
     </Container>
   );

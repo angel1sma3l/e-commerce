@@ -18,6 +18,7 @@ const Container = ({
         margin: 0,
         width: "100vw",
         overflow: "hidden",
+        minHeight: "100vh"
       }}
     >
       {children}

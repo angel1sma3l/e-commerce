@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
 import Input from "./Input";
-import Container from "../hoc/Container";
-import Col from "../hoc/Col";
 import useIsMobile from "../hooks/useIsMobile";
 import Button from "./Button";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -65,8 +63,8 @@ const Login = () => {
     // Validting input
     const newErrors = { ...errors };
     const errMessage = validateProperty(input);
-    if (errMessage) newErrors[input.name] = errMessage;
-    else delete newErrors[input.name];
+    if (errMessage) newErrors[name] = errMessage;
+    else delete newErrors[name];
 
     setErrors(newErrors);
     newData[name] = value;

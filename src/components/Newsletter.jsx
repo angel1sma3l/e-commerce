@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import useIsMobile from "../hooks/useIsMobile";
+import { toast } from "react-toastify";
 
 const Newsletter = () => {
   const [data, setData] = useState({
@@ -51,8 +52,14 @@ const Newsletter = () => {
     setData(newData);
   };
 
-  const handleSubscribe = () => {
+  const handleSubscribe = (e) => {
+    e.preventDefault();
     console.log(data);
+    console.log("taped...");
+    toast.info("Thank you!", {
+      position: "top-center",
+      style: {}
+    });
   };
 
   return (
@@ -61,9 +68,9 @@ const Newsletter = () => {
       <div style={styles.desc}>
         Subscribe to receive email everytime a new product comes out.
       </div>
-      <div style={styles.inputContainer}>
+      <form style={styles.inputContainer} onSubmit={handleSubscribe} >
         <Input
-          dark
+        required
           onChange={handleChange}
           placeHolder="First Name"
           value={data.firstName}
@@ -71,7 +78,8 @@ const Newsletter = () => {
           label="First Name"
         />
         <Input
-          dark
+          required 
+          type="email"
           onChange={handleChange}
           placeHolder="Last Name"
           name="lastName"
@@ -79,15 +87,15 @@ const Newsletter = () => {
           label="Last Name"
         />
         <Input
-          dark
+          required
           onChange={handleChange}
           placeHolder="Email"
           name="email"
           value={data.email}
           label="Email"
         />
-        <Button onPress={handleSubscribe} width={300} title="Subscribe" />
-      </div>
+        <Button type="submit" width={300} title="Subscribe" />
+      </form>
     </div>
   );
 };

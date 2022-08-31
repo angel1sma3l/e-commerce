@@ -1,4 +1,4 @@
-# A e-commerce template created with React.
+# My E-commerce template created with React.
 
 User friendly, modern, very fast and beautiful React e-commerce platform. Dynamic shooping experience.
 
@@ -7,11 +7,16 @@ it work in any device, mobile or desktop.
 Features:
 
 - Dark mode.
-- Favorite.
-- Cart.
+- Favorite page.
+- Cart Page.
+- Products page,
+- Product details.
+- Slideshow for product's images.
+- Validate forms with Joi and HTML5 validation.
+- 
 - Sign in, Sign up.
 
-I use useContext to handle cart and favorite.
+I use useContext and useReducer to handle cart and favorite items.
 
 Note: Backend server is on development.
 

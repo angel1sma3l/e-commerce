@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Text from "../components/Text";
+import MyText from "../components/MyText";
 import Col from "../hoc/Col";
 import Row from "../hoc/Row";
 import Container from "../hoc/Container";
@@ -17,7 +17,7 @@ const GuestCheckout = () => {
 
   return (
     <Container>
-      <Text size={80}>Shipping</Text>
+      <MyText size={80}>Shipping</MyText>
       <Row mt={50}>
         <Col width={isMobile ? "100%" : "60%"}>
           <div
