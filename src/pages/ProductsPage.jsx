@@ -1,10 +1,7 @@
 import Container from "../hoc/Container";
 import Products from "../components/Products";
 import { CartState } from "../context/CartContext";
-import Row from "../hoc/Row";
 import Filters from "../components/Filters";
-import useIsMobile from "../hooks/useIsMobile";
-import Col from "../hoc/Col";
 import ScrollToTop from "../components/ScrollToTop";
 
 const ProductsPage = () => {
@@ -12,7 +9,6 @@ const ProductsPage = () => {
     state: { products },
     prodState: { byPrice, inStock, byRating, searchQuery },
   } = CartState();
-  const isMobile = useIsMobile();
 
   const transformProducts = () => {
     let sortedProducts = products;
@@ -37,21 +33,8 @@ const ProductsPage = () => {
 
   return (
     <Container>
-      <Row>
-        <Col flex={isMobile ? null : 1}>
-          <div
-            style={{
-              // height: isMobile ? null : "100vh",
-              position: isMobile ? "static" : "fixed",
-            }}
-          >
-            <Filters />
-          </div>
-        </Col>
-        <Col flex={3}>
-          <Products data={transformProducts()} />
-        </Col>
-      </Row>
+      <Filters />
+      <Products data={transformProducts()} />
       <ScrollToTop />
     </Container>
   );

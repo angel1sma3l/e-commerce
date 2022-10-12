@@ -1,17 +1,14 @@
 import React from "react";
 import Product from "../components/Product";
-import useIsMobile from "../hooks/useIsMobile";
 
 const Products = ({ data = [] }) => {
-  const isMobile = useIsMobile();
-
   return (
-    <main
+    <article
       style={{
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        width: "100%",
+        maxWidth: 1200,
         minHeight: "80vh",
       }}
     >
@@ -31,7 +28,7 @@ const Products = ({ data = [] }) => {
           <Product key={item.id} item={item} />
         ))}
       </div>
-    </main>
+    </article>
   );
 };
 

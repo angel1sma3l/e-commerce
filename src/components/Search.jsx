@@ -4,10 +4,9 @@ import { useState } from "react";
 const MySearch = ({
   data,
   width = "90%",
-  onSearch,
   onChange,
   value,
-  searchBy,
+  searchBy = "search",
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -17,33 +16,33 @@ const MySearch = ({
 
   const styles = {
     container: {
-      alignItems: "center",
       display: "flex",
-      flexDirection: "row",
-      margin: "20px 0px",
+      alignItems: "flex-end",
+      justifyContent: "center",
+      gap: 5,
+      height: 35,
       width: width,
       overflow: "hidden",
       padding: 0,
-      position: "relative",
+      border: focused ? "1px solid var(--text-primary)" : "0.5px solid gray",
+      borderRadius: 17.5,
     },
     input: {
+      display: "flex",
       width: "100%",
       backgroundColor: "var(--background)",
       fontSize: 23,
       color: "var(--text-primary)",
-      paddingLeft: 50,
-      paddingTop: 10,
-      paddingBottom: 10,
-      border: focused ? "1px solid var(--text-primary)" : "0.5px solid gray",
-      borderRadius: 23,
+      height: "100%",
+      border: "none",
+      outline: "none",
     },
   };
 
   return (
     <div style={styles.container}>
-      <div style={{ position: "absolute", left: 3, top: 3 }}>
-        <Search fontSize="large" />
-      </div>
+      <Search fontSize="large" color="info" />
+
       <input
         style={styles.input}
         onChange={handleChange}
