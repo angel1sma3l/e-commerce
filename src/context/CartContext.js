@@ -8,25 +8,25 @@ const CartContext = ({ children }) => {
   // this data will come from the server
   faker.seed(88);
   const products = [...Array(20)].map(() => ({
-    id: faker.datatype.uuid(),
+    id: faker.commerce.isbn(),
     title: faker.commerce.productName(),
     desc: faker.commerce.productDescription(),
     price: faker.commerce.price(),
     images: [
-      { image: faker.image.image() },
-      { image: faker.image.image() },
-      { image: faker.image.image() },
+      { image: faker.image.avatar() },
+      { image: faker.image.avatar() },
+      { image: faker.image.avatar() },
     ],
-    inStock: faker.random.arrayElement([0, 3, 5, 7]),
-    rating: faker.random.arrayElement([1, 2, 3, 4, 5]),
-    size: faker.random.arrayElement([
+    inStock: faker.helpers.arrayElement([0, 3, 5, 7]),
+    rating: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
+    size: faker.helpers.arrayElement([
       "small",
       "mediun",
       "large",
       "x-large",
       "x-small",
     ]),
-    color: faker.commerce.color(),
+    color: faker.helpers.arrayElement(["black", "red", "white", "blue"]),
     isFavorite: false,
   }));
 

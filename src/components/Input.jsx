@@ -86,9 +86,9 @@ const Input = ({
     },
   };
 
-  const PlaceholderAsterisk = () => {
-    return <div style={{ color: "red" }}>{placeHolder}</div>;
-  };
+  // const PlaceholderAsterisk = () => {
+  //   return <div style={{ color: "red" }}>{placeHolder}</div>;
+  // };
 
   return (
     <div style={styles.container}>

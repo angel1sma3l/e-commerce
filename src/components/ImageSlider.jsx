@@ -1,11 +1,9 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import useIsMobile from "../hooks/useIsMobile";
 
 const ImageSlider = ({ data, showArrow = false, height, width }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [hover, setHover] = useState(false);
-  const isMobile = useIsMobile();
   const totalImages = data.length - 1;
 
   useEffect(() => {

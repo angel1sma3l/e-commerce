@@ -24,7 +24,7 @@ const data = [
 ];
 
 const Navbar = ({ theme, onThemeChange }) => {
-  const [hover, setHover] = useState(null);
+  // const [hover, setHover] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [showLoginMenu, setShowLoginMenu] = useState(false);
   const isMobile = useIsMobile();
@@ -48,8 +48,8 @@ const Navbar = ({ theme, onThemeChange }) => {
                 isActive ? styles.activeLink : styles.dropDownlink
               }
               onClick={closeMenu}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(null)}
+              // onMouseEnter={() => setHover(index)}
+              // onMouseLeave={() => setHover(null)}
               to={item.to}
             >
               {item.title}

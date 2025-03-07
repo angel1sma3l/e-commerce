@@ -18,7 +18,8 @@ const Container = ({
         margin: 0,
         width: "100vw",
         overflow: "hidden",
-        minHeight: "100vh"
+        minHeight: "100vh",
+        scrollSnapType: "y madatory",
       }}
     >
       {children}

@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <Container>
       <Slider data={images} auto />
-      <Row maxHeight="80vh">
+      <Row maxHeight="100vh">
         <Products data={products} />
       </Row>
       <Newsletter />

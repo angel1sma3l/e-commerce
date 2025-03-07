@@ -1,4 +1,4 @@
-import { AddShoppingCartOutlined, DeleteRounded } from "@mui/icons-material";
+import { AddShoppingCartOutlined } from "@mui/icons-material";
 import { CartState } from "../context/CartContext";
 import formatter from "../utility/formatter";
 import FavButton from "./FavButton";

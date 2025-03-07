@@ -34,6 +34,7 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
       margin: 0,
       overflow: "hidden",
       position: "relative",
+      scrollSnapAlign: "end",
     },
     leftArrow: {
       backgroundColor: "#00000044",
@@ -75,6 +76,7 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
     slide: {
       flexWrap: "wrap",
       display: "flex",
+      height: "90vh",
       flexDirection: "row",
       justifyContent: "center",
       width: "100vw",
@@ -101,7 +103,7 @@ const Slider = ({ data, showArrow = true, auto, time = 5000 }) => {
       fontSize: 38,
       width: "95%",
     },
-    image: { height: "auto", width: "100%", objectFit: "contain" },
+    image: { height: "90vh", width: "100%", objectFit: "contain" },
     title: {
       // display: "flex",
       fontSize: isMobile ? 60 : 100,

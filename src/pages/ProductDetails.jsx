@@ -37,17 +37,19 @@ const ProductDetails = () => {
       flex: isMobile ? null : 1,
       alignItems: "center",
       justifyContent: "center",
-      minHeight: "50vh",
+      height: "100%",
     },
     right: {
       display: "flex",
       flex: isMobile ? null : 1,
       flexDirection: "column",
       justifyContent: "space-around",
+      height: "100%",
       alignItems: "center",
     },
     infoContainer: {
       display: "flex",
+      justifyContent: "space-around",
       flexDirection: "column",
       width: "80%",
     },
@@ -83,7 +85,6 @@ const ProductDetails = () => {
 
   return (
     <div style={styles.container}>
-      <h1>{product.title}</h1>
       <BackButton onClick={() => navigate(-1)} />
 
       <div style={styles.wrapper}>
@@ -92,8 +93,8 @@ const ProductDetails = () => {
             src={product.images[0].image}
             alt={product.title}
             style={{
-              height: "100%",
-              width: isMobile ? "100vw" : "45vw",
+              height: "500px",
+              width: "auto",
               objectFit: "contain",
             }}
           />

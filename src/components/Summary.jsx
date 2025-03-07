@@ -14,6 +14,7 @@ const Summary = ({ onClick, noButton = false, shipping = 0, taxes = 0 }) => {
   const styles = {
     container: {
       flexDirection: "column",
+      height: "80vh",
       display: "flex",
       width: "100%",
       justifyContent: "center",
