@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import MyText from "../components/MyText";
 import Col from "../hoc/Col";
 import Row from "../hoc/Row";

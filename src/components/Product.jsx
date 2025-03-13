@@ -9,10 +9,7 @@ import ImageSlider from "./ImageSlider";
 const Product = ({ item }) => {
   const isMobile = useIsMobile();
   const [hover, setHover] = useState(false);
-  const {
-    state: { products },
-    dispatch,
-  } = CartState();
+  const { dispatch } = CartState();
   const navigate = useNavigate();
 
   const styles = {
